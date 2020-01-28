@@ -1,16 +1,6 @@
 $(document).ready(function(){
     $("#search").click(function() {
-        var data = $('#filter').serializeArray();
-
-        $.each(data, function(i, field){
-            console.log(field);
-            if (field.value == '') {
-                data.splice(i, 1);
-            }
-            else {
-                alert('não null');
-            }
-        },data);
+        var data = $("#filter").serializeArray();
 
         $.ajax({
             "context": this,
@@ -18,7 +8,7 @@ $(document).ready(function(){
             "method": "GET",
             "data": data
         }).done(function (content) {
-            console.log('tois');
+            //
         }).fail(function (content) {
             console.log("falhou");
         });
