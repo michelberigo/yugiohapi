@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'MainController@index');
+Route::get('/getCardSpecificTypes/{id}', 'MainController@getCardSpecificTypes');
+Route::get('/getTypes/{id}', 'MainController@getTypes');
