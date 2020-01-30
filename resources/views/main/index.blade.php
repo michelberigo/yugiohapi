@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="col-md-3">
-                    <div class="form-group hide-card-type">
+                    <div class="form-group hide-monster">
                         <label for="attribute">Attribute</label>
 
                         <select name="attribute" id="attribute" class="form-control">
@@ -84,7 +84,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group hide-card-type">
+                    <div class="form-group hide-monster">
                         <label for="level">Level</label>
 
                         <select name="level" id="level" class="form-control">
@@ -96,7 +96,7 @@
                         </select>
                     </div>
 
-                    <div class="col-md-12 hide-card-type">
+                    <div class="col-md-12 hide-monster">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -118,7 +118,7 @@
                 </div>
 
                 <div class="col-md-3">
-                    <div class="form-group hide-card-type">
+                    <div class="form-group hide-monster">
                         <label for="link">Link</label>
 
                         <select name="link" id="link" class="form-control">
@@ -130,7 +130,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group hide-card-type">
+                    <div class="form-group hide-monster">
                         <label for="scale">Scale</label>
 
                         <select name="scale" id="scale" class="form-control">
@@ -155,23 +155,39 @@
                     <h4>{{ $card->name }}</h4>
                     
                     <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <img src="{{ $card->card_images[0]->image_url_small }}" alt="">
-                            </div>
+                        <a href="" data-toggle="modal" data-target="#ModalImage{{ $card->id }}">
+                            <img src="{{ $card->card_images[0]->image_url_small }}" alt="">
+                        </a>
 
-                            <div class="col-md-6">
-                                <p>Card Set Information</p>
+                        <!-- Modal -->
+                        <div id="ModalImage{{ $card->id }}" class="modal fade" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">{{ $card->name }}</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
 
-                                @if (!empty($card->card_sets))
-                                    @foreach ($card->card_sets as $set)
-                                        <div><small>{{ $set->set_name }}</small></div>
-                                        <div><small>{{ $set->set_rarity }}</small></div>
-                                        <div><small>{{ $set->set_price }}</small></div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <img src="{{ $card->card_images[0]->image_url }}" alt="">
+                                            </div>
 
-                                        <br>
-                                    @endforeach
-                                @endif
+                                            <div class="col-md-6">
+                                                @if (!empty($card->card_sets))
+                                                    @foreach ($card->card_sets as $set)
+                                                        <h4>{{ $set->set_name }}</h4>
+                                                        <p>Rarity: {{ $set->set_rarity }}</p>
+                                                        <p>Price: {{ $set->set_price }}</p>
+
+                                                        <br>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

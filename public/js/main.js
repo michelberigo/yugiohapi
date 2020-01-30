@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $('.hide-card-type').hide();
+    $('.hide-monster').hide();
 
     //$('#archetype').select2();
 
@@ -18,6 +19,13 @@ $(document).ready(function() {
         }
         else {
             $('.hide-card-type').hide();
+        }
+
+        if ($(this).val() == 1) {
+            $('.hide-monster').show();
+        }
+        else {
+            $('.hide-monster').hide();
         }
 
         var url1 = '/getCardSpecificTypes/' + $(this).val();
