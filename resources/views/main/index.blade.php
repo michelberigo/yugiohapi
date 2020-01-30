@@ -95,9 +95,52 @@
                             @endfor
                         </select>
                     </div>
+
+                    <div class="col-md-12 hide-card-type">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="atk">ATK</label>
+
+                                    <input type="text" name="atk" id="atk" placeholder="ATK" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="def">DEF</label>
+
+                                    <input type="text" name="def" id="def" placeholder="DEF" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-3">
+                    <div class="form-group hide-card-type">
+                        <label for="link">Link</label>
+
+                        <select name="link" id="link" class="form-control">
+                            <option value="">Selecionar</option>
+
+                            @for ($i = 1; $i < 10; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+
+                    <div class="form-group hide-card-type">
+                        <label for="scale">Scale</label>
+
+                        <select name="scale" id="scale" class="form-control">
+                            <option value="">Selecionar</option>
+
+                            @for ($i = 0; $i < 14; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
                 </div>
 
                 <div class="col-md-12 text-center">
@@ -109,10 +152,28 @@
         <div class="row text-center">
             @foreach ($cards as $card)
                 <div class="col-md-4">
-                    {{ $card->name }}
+                    <h4>{{ $card->name }}</h4>
+                    
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img src="{{ $card->card_images[0]->image_url_small }}" alt="">
+                            </div>
 
-                    <div>
-                        <img src="{{ $card->card_images[0]->image_url_small }}" alt="">
+                            <div class="col-md-6">
+                                <p>Card Set Information</p>
+
+                                @if (!empty($card->card_sets))
+                                    @foreach ($card->card_sets as $set)
+                                        <div><small>{{ $set->set_name }}</small></div>
+                                        <div><small>{{ $set->set_rarity }}</small></div>
+                                        <div><small>{{ $set->set_price }}</small></div>
+
+                                        <br>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
