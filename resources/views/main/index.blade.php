@@ -3,10 +3,13 @@
 @section('head')
     <script src="js/main.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="css/main/main.scss">
+    <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/infinite-scroll/infinite-scroll.css">
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
         <form id="filter" method="get" action="/">
             <div class="row">
                 <div class="col-md-3">
@@ -30,7 +33,7 @@
                     </div>
 
                     <div class="form-group hide-card-type">
-                        <label for="race">Tipo do Monstro</label>
+                        <label for="race">Tipo</label>
 
                         <select name="race" id="race" class="form-control">
                             <option value="">Selecionar</option>
@@ -110,12 +113,14 @@
 
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="banlist">Banlist</label>
+                        <label for="set">Sets</label>
 
-                        <select name="banlist" id="banlist" class="form-control">
-                            <option value="">Nenhum</option>
-                            <option value="tcg">TCG</option>
-                            <option value="ocg">OCG</option>
+                        <select name="set" id="set" class="form-control">
+                            <option value="">Selecionar</option>
+
+                            @foreach ($cardSets as $cardSet)
+                                <option value="{{ $cardSet->set_name }}">{{ $cardSet->set_name }} - {{ $cardSet->set_code }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -149,10 +154,12 @@
                 </div>
             </div>
         </form>
+    </nav>
 
-        <br>
-        
-        <div class="row text-center">
+    <br>
+
+    <div class="container-fluid">
+        <div class="row text-center scroll">
             @foreach ($cards as $card)
                 <div class="col-md-4 card-result">
                     <h4>{{ $card->name }}</h4>
@@ -160,6 +167,16 @@
                     <div class="col-md-12">
                         <a href="" data-toggle="modal" data-target="#ModalImage{{ $card->id }}">
                             <img src="{{ $card->card_images[0]->image_url_small }}" alt="">
+
+                            @if (isset($card->banlist_info->ban_ocg))
+                                @if ($card->banlist_info->ban_ocg == 'Banned')
+                                    <img src="img/banned.png" alt="" class="img-banlist">
+                                @elseif ($card->banlist_info->ban_ocg == 'Limited')
+                                    <img src="img/limited.png" alt="" class="img-banlist">
+                                @elseif ($card->banlist_info->ban_ocg == 'Semi-Limited')
+                                    <img src="img/semi-limited.png" alt="" class="img-banlist">
+                                @endif
+                            @endif
                         </a>
 
                         <!-- Modal -->
@@ -181,7 +198,7 @@
                                                 @if (!empty($card->card_sets))
                                                     @foreach ($card->card_sets as $set)
                                                         <h4>{{ $set->set_name }}</h4>
-                                                        <p>Rarity: {{ $set->set_rarity }}</p>
+                                                        <h5>Raridade: {{ $set->set_rarity }}</h5>
                                                         <p>Price: {{ $set->set_price }}</p>
 
                                                         <br>
@@ -197,5 +214,19 @@
                 </div>
             @endforeach
         </div>
+
+        <div class="scroller-status">
+            <div class="loader-ellips infinite-scroll-request">
+                <span class="loader-ellips__dot"></span>
+                <span class="loader-ellips__dot"></span>
+                <span class="loader-ellips__dot"></span>
+                <span class="loader-ellips__dot"></span>
+            </div>
+            
+            <p class="scroller-status__message infinite-scroll-last">End of content</p>
+            <p class="scroller-status__message infinite-scroll-error">No more pages to load</p>
+        </div>
+
+        {{ $cards->appends($_GET)->links() }}
     </div>
 @endsection

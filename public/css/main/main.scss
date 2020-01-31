@@ -1,5 +1,20 @@
+form label {
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
 .img-responsive-modal {
 	max-width: 100%;
+}
+
+.img-banlist {
+	position: absolute;
+	left: 35%;
+    top: 10%;
+    margin-top: -25px;
+	margin-left: -25px;
+	width: 15%;
+	height: 20%;
 }
 
 .card-result {

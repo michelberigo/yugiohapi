@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     //$('#archetype').select2();
 
-    $('form[method="get"]').submit(function(){
+    $('form[method="get"]').submit(function() {
         $(this).find(':input').each(function() {
             var inp = $(this);
             if (!inp.val()) {
@@ -55,5 +55,13 @@ $(document).ready(function() {
                 select.append("<option value='" + value.type + "'>" + value.type + "</option>");
             });
         });
+    });
+
+    $('.scroll').infiniteScroll({
+        // options
+        path: '.pagination__next',
+        append: '.card-result',
+        status: '.scroller-status',
+        hideNav: '.pagination',
     });
 });
