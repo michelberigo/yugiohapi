@@ -2,6 +2,7 @@
 
 @section('head')
     <script src="js/main.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/main/main.scss">
 @endsection
 
 @section('content')
@@ -10,37 +11,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="archetype">Archetype</label>
-
-                        <select name="archetype" id="archetype" class="form-control">
-                            <option value="">Selecionar</option>
-
-                            @foreach ($archetypes as $archetype)
-                                <option value="{{ $archetype->archetype_name }}">{{ $archetype->archetype_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="fname">Name</label>
-
-                        <input type="text" name="fname" id="fname" placeholder="Name" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="banlist">Banlist</label>
-
-                        <select name="banlist" id="banlist" class="form-control">
-                            <option value="">Nenhum</option>
-                            <option value="tcg">TCG</option>
-                            <option value="ocg">OCG</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="">Card Type</label>
+                        <label for="">Tipo da Carta</label>
 
                         <select name="" id="card-type" class="form-control">
                             <option value="">Selecionar</option>
@@ -52,14 +23,14 @@
                     </div>
 
                     <div class="form-group hide-card-type">
-                        <label for="type">Card Specific Type</label>
+                        <label for="type">Tipo Específico da Carta</label>
 
                         <select name="type" id="type" class="form-control">
                         </select>
                     </div>
 
                     <div class="form-group hide-card-type">
-                        <label for="race">Type</label>
+                        <label for="race">Tipo do Monstro</label>
 
                         <select name="race" id="race" class="form-control">
                             <option value="">Selecionar</option>
@@ -72,8 +43,14 @@
                 </div>
 
                 <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="fname">Nome</label>
+
+                        <input type="text" name="fname" id="fname" placeholder="Nome" class="form-control">
+                    </div>
+
                     <div class="form-group hide-monster">
-                        <label for="attribute">Attribute</label>
+                        <label for="attribute">Atributo</label>
 
                         <select name="attribute" id="attribute" class="form-control">
                             <option value="">Selecionar</option>
@@ -85,7 +62,7 @@
                     </div>
 
                     <div class="form-group hide-monster">
-                        <label for="level">Level</label>
+                        <label for="level">Nível/Rank</label>
 
                         <select name="level" id="level" class="form-control">
                             <option value="">Selecionar</option>
@@ -93,6 +70,20 @@
                             @for ($i = 1; $i < 13; $i++)
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="archetype">Arquétipo</label>
+
+                        <select name="archetype" id="archetype" class="form-control">
+                            <option value="">Selecionar</option>
+
+                            @foreach ($archetypes as $archetype)
+                                <option value="{{ $archetype->archetype_name }}">{{ $archetype->archetype_name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -118,8 +109,18 @@
                 </div>
 
                 <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="banlist">Banlist</label>
+
+                        <select name="banlist" id="banlist" class="form-control">
+                            <option value="">Nenhum</option>
+                            <option value="tcg">TCG</option>
+                            <option value="ocg">OCG</option>
+                        </select>
+                    </div>
+
                     <div class="form-group hide-monster">
-                        <label for="link">Link</label>
+                        <label for="link">Setas Link</label>
 
                         <select name="link" id="link" class="form-control">
                             <option value="">Selecionar</option>
@@ -131,7 +132,7 @@
                     </div>
 
                     <div class="form-group hide-monster">
-                        <label for="scale">Scale</label>
+                        <label for="scale">Escala Pendulum</label>
 
                         <select name="scale" id="scale" class="form-control">
                             <option value="">Selecionar</option>
@@ -149,9 +150,11 @@
             </div>
         </form>
 
+        <br>
+        
         <div class="row text-center">
             @foreach ($cards as $card)
-                <div class="col-md-4">
+                <div class="col-md-4 card-result">
                     <h4>{{ $card->name }}</h4>
                     
                     <div class="col-md-12">
@@ -171,7 +174,7 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <img src="{{ $card->card_images[0]->image_url }}" alt="">
+                                                <img src="{{ $card->card_images[0]->image_url }}" class="img-responsive-modal ">
                                             </div>
 
                                             <div class="col-md-6">

@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function index (Request $request) {
-        $url = "https://db.ygoprodeck.com/api/v6/cardinfo.php?{$request->getQueryString()}";
+        $data = $request->all();
+
+        $url = "https://db.ygoprodeck.com/api/v6/cardinfo.php?" . http_build_query($data);
         $ch = curl_init($url); 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
         $cards = json_decode(curl_exec($ch));
-        $cards = collect($cards)->take(6);
+        $cards = collect($cards);
 
         $archetypes = $this->archetypes();
         $cardTypes = CardType::all();
