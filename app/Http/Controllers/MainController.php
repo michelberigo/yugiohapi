@@ -18,12 +18,12 @@ class MainController extends Controller
             unset($data['page']);
         }
 
-        $url = "https://db.ygoprodeck.com/api/v6/cardinfo.php?" . http_build_query($data);
+        $url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?" . http_build_query($data);
         $ch = curl_init($url); 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
         $cards = json_decode(curl_exec($ch));
-        $cards = collect($cards)->sortBy('type');
+        $cards = collect($cards->data)->sortBy('type');
         $cards = $this->pagination($cards, $page);
 
         $archetypes = $this->archetypes();

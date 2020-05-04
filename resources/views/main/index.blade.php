@@ -8,7 +8,6 @@
 @endsection
 
 @section('content')
-    
     <nav class="navbar navbar-expand navbar-dark bg-dark">
         <form id="filter" method="get" action="/">
             <div class="row">
@@ -168,12 +167,12 @@
                         <a href="" data-toggle="modal" data-target="#ModalImage{{ $card->id }}">
                             <img src="{{ $card->card_images[0]->image_url_small }}" alt="">
 
-                            @if (isset($card->banlist_info->ban_ocg))
-                                @if ($card->banlist_info->ban_ocg == 'Banned')
+                            @if (isset($card->banlist_info->ban_tcg))
+                                @if ($card->banlist_info->ban_tcg == 'Banned')
                                     <img src="img/banned.png" alt="" class="img-banlist">
-                                @elseif ($card->banlist_info->ban_ocg == 'Limited')
+                                @elseif ($card->banlist_info->ban_tcg == 'Limited')
                                     <img src="img/limited.png" alt="" class="img-banlist">
-                                @elseif ($card->banlist_info->ban_ocg == 'Semi-Limited')
+                                @elseif ($card->banlist_info->ban_tcg == 'Semi-Limited')
                                     <img src="img/semi-limited.png" alt="" class="img-banlist">
                                 @endif
                             @endif
@@ -195,11 +194,10 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                @if (!empty($card->card_sets))
+                                                @if (isset($card->card_sets))
                                                     @foreach ($card->card_sets as $set)
-                                                        <h4>{{ $set->set_name }}</h4>
+                                                        <h4>Set: {{ $set->set_name }}</h4>
                                                         <h5>Raridade: {{ $set->set_rarity }}</h5>
-                                                        <p>Price: {{ $set->set_price }}</p>
 
                                                         <br>
                                                     @endforeach
@@ -223,7 +221,7 @@
                 <span class="loader-ellips__dot"></span>
             </div>
             
-            <p class="scroller-status__message infinite-scroll-last">End of content</p>
+            <p class="scroller-status__message infinite-scroll-last">Fim</p>
             <p class="scroller-status__message infinite-scroll-error">No more pages to load</p>
         </div>
 
