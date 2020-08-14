@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    public function index (Request $request) {
+    public function index(Request $request)
+    {
         $data = $request->all();
 
         $page = 1;
@@ -20,8 +21,8 @@ class MainController extends Controller
 
         $url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?" . http_build_query($data);
         $ch = curl_init($url); 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $cards = json_decode(curl_exec($ch));
         $cards = collect($cards->data)->sortBy('type');
         $cards = $this->pagination($cards, $page);
@@ -42,46 +43,51 @@ class MainController extends Controller
         return view('main.index', $parametros);
     }
 
-    public function pagination ($cards, $page) {
-        $perPage = 12;
+    public function pagination($cards, $page)
+    {
+        $perPage = 30;
 
         $cards = new \Illuminate\Pagination\LengthAwarePaginator(
-            $cards->forPage($page, $perPage), 
-            $cards->count(), 
-            $perPage, 
+            $cards->forPage($page, $perPage),
+            $cards->count(),
+            $perPage,
             $page
         );
 
         return $cards;
     }
 
-    protected function archetypes () {
-        $url = "https://db.ygoprodeck.com/api/v6/archetypes.php"; 
-        $ch = curl_init($url); 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+    protected function archetypes()
+    {
+        $url = "https://db.ygoprodeck.com/api/v6/archetypes.php";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $archetypes = json_decode(curl_exec($ch));
         $archetypes = collect($archetypes);
 
         return $archetypes;
     }
 
-    protected function cardsets () {
-        $url = "https://db.ygoprodeck.com/api/v6/cardsets.php"; 
-        $ch = curl_init($url); 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+    protected function cardsets()
+    {
+        $url = "https://db.ygoprodeck.com/api/v6/cardsets.php";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $cardSets = json_decode(curl_exec($ch));
         $cardSets = collect($cardSets);
 
         return $cardSets;
     }
 
-    public function getCardSpecificTypes ($id) {
+    public function getCardSpecificTypes($id)
+    {
         return CardType::findOrFail($id)->cardSpecificTypes()->get();
     }
 
-    public function getTypes ($id) {
+    public function getTypes($id)
+    {
         return CardType::findOrFail($id)->types()->get();
     }
 }

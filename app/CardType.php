@@ -10,11 +10,13 @@ class CardType extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function cardSpecificTypes() {
+    public function cardSpecificTypes()
+    {
         return $this->hasMany('App\CardSpecificType');
     }
 
-    public function types() {
+    public function types()
+    {
         return $this->hasMany('App\Type');
     }
 }
