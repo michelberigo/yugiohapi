@@ -27,8 +27,7 @@
                     <div class="form-group hide-card-type">
                         <label for="type">Tipo Específico da Carta</label>
 
-                        <select name="type" id="type" class="form-control">
-                        </select>
+                        <select name="type" id="type" class="form-control"></select>
                     </div>
 
                     <div class="form-group hide-card-type">
@@ -84,7 +83,7 @@
                             <option value="">Selecionar</option>
 
                             @foreach ($archetypes as $archetype)
-                                <option value="{{ $archetype->archetype_name }}">{{ $archetype->archetype_name }}</option>
+                                <option value="{{ $archetype['archetype_name'] }}">{{ $archetype['archetype_name'] }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -149,7 +148,7 @@
                 </div>
 
                 <div class="col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary" id="search">Buscar</button>
+                    <button type="submit" class="btn btn-success" id="search">Buscar</button>
                 </div>
             </div>
         </form>
@@ -160,20 +159,20 @@
     <div class="container-fluid">
         <div class="row text-center scroll">
             @foreach ($cards as $card)
-                <div class="col-md-4 card-result">
+                <div class="col-md-3 card-result">
                     <h4>{{ $card->name }}</h4>
                     
                     <div class="col-md-12">
                         <a href="" data-toggle="modal" data-target="#ModalImage{{ $card->id }}">
-                            <img src="{{ $card->card_images[0]->image_url_small }}" alt="">
+                            <img src="{{ $card->card_images[0]->image_url_small }}" alt="{{ $card->name }}" width="168" height="246">
 
                             @if (isset($card->banlist_info->ban_tcg))
                                 @if ($card->banlist_info->ban_tcg == 'Banned')
-                                    <img src="img/banned.png" alt="" class="img-banlist">
+                                    <img src="img/banned.png" alt="banned" class="img-banlist">
                                 @elseif ($card->banlist_info->ban_tcg == 'Limited')
-                                    <img src="img/limited.png" alt="" class="img-banlist">
+                                    <img src="img/limited.png" alt="limited" class="img-banlist">
                                 @elseif ($card->banlist_info->ban_tcg == 'Semi-Limited')
-                                    <img src="img/semi-limited.png" alt="" class="img-banlist">
+                                    <img src="img/semi-limited.png" alt="semi limited" class="img-banlist">
                                 @endif
                             @endif
                         </a>
@@ -184,6 +183,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h4 class="modal-title">{{ $card->name }}</h4>
+                                        
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
 
