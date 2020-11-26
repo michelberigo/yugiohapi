@@ -117,7 +117,7 @@
                             <option value="">Selecionar</option>
 
                             @foreach ($cardSets as $cardSet)
-                                <option value="{{ $cardSet->set_name }}">{{ $cardSet->set_name }} - {{ $cardSet->set_code }}</option>
+                                <option value="{{ $cardSet['set_name'] }}">{{ $cardSet['set_name'] }} - {{ $cardSet['set_code'] }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -160,29 +160,29 @@
         <div class="row text-center scroll">
             @foreach ($cards as $card)
                 <div class="col-md-3 card-result">
-                    <h4>{{ $card->name }}</h4>
+                    <h4>{{ $card['name'] }}</h4>
                     
                     <div class="col-md-12">
-                        <a href="" data-toggle="modal" data-target="#ModalImage{{ $card->id }}">
-                            <img src="{{ $card->card_images[0]->image_url_small }}" alt="{{ $card->name }}" width="168" height="246">
+                        <a href="" data-toggle="modal" data-target="#ModalImage{{ $card['id'] }}">
+                            <img src="{{ $card['card_images'][0]['image_url_small'] }}" alt="{{ $card['name'] }}" width="168" height="246">
 
-                            @if (isset($card->banlist_info->ban_tcg))
-                                @if ($card->banlist_info->ban_tcg == 'Banned')
+                            @if (isset($card['banlist_info']['ban_tcg']))
+                                @if ($card['banlist_info']['ban_tcg'] == 'Banned')
                                     <img src="img/banned.png" alt="banned" class="img-banlist">
-                                @elseif ($card->banlist_info->ban_tcg == 'Limited')
+                                @elseif ($card['banlist_info']['ban_tcg'] == 'Limited')
                                     <img src="img/limited.png" alt="limited" class="img-banlist">
-                                @elseif ($card->banlist_info->ban_tcg == 'Semi-Limited')
+                                @elseif ($card['banlist_info']['ban_tcg'] == 'Semi-Limited')
                                     <img src="img/semi-limited.png" alt="semi limited" class="img-banlist">
                                 @endif
                             @endif
                         </a>
 
                         <!-- Modal -->
-                        <div id="ModalImage{{ $card->id }}" class="modal fade" role="dialog">
+                        <div id="ModalImage{{ $card['id'] }}" class="modal fade" role="dialog">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">{{ $card->name }}</h4>
+                                        <h4 class="modal-title">{{ $card['name'] }}</h4>
                                         
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
@@ -190,14 +190,14 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <img src="{{ $card->card_images[0]->image_url }}" class="img-responsive-modal ">
+                                                <img src="{{ $card['card_images'][0]['image_url'] }}" class="img-responsive-modal ">
                                             </div>
 
                                             <div class="col-md-6">
-                                                @if (isset($card->card_sets))
-                                                    @foreach ($card->card_sets as $set)
-                                                        <h4>Set: {{ $set->set_name }}</h4>
-                                                        <h5>Raridade: {{ $set->set_rarity }}</h5>
+                                                @if (isset($card['card_sets']))
+                                                    @foreach ($card['card_sets'] as $set)
+                                                        <h4>Set: {{ $set['set_name'] }}</h4>
+                                                        <h5>Raridade: {{ $set['set_rarity'] }}</h5>
 
                                                         <br>
                                                     @endforeach

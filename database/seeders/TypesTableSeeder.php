@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+use App\Type;
 
 class TypesTableSeeder extends Seeder
 {
@@ -52,7 +55,7 @@ class TypesTableSeeder extends Seeder
         ];
 
         foreach ($cards as $card) {
-            App\Type::updateOrCreate(
+            Type::updateOrCreate(
                 [
                     'id' => $card['id']
                 ],

@@ -11,14 +11,21 @@ class MainController extends Controller
 {
     public function index(Request $request)
     {
-        $parametrosUrl = http_build_query($request->all());
+        $dados = $request->all();
+        if (isset($dados['page'])) {
+            unset($dados['page']);
+        }
+
+        $parametrosUrl = http_build_query($dados);
         $url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?" . $parametrosUrl;
 
-        /*$response = Http::get($url);
+        $response = Http::get($url);
 
         $cartas = $response->json();
         $cartas = collect($cartas['data']);
-        $cartas = $cartas->sortBy('name');*/
+        $cartas = $cartas->sortBy('name');
+
+        $cartas = $this->pagination($cartas, $request->get('page'));
 
         $archetypes = $this->getArchetypes();
         $cardSets = $this->getCardSets();
@@ -38,7 +45,8 @@ class MainController extends Controller
 
     public function pagination($cards, $page)
     {
-        $perPage = 30;
+        $perPage = 32;
+        $page = $page ?? 1;
 
         $cards = new \Illuminate\Pagination\LengthAwarePaginator(
             $cards->forPage($page, $perPage),
@@ -72,11 +80,11 @@ class MainController extends Controller
 
     public function getCardSpecificTypes($id)
     {
-        return CardType::findOrFail($id)->cardSpecificTypes()->get();
+        return CardType::find($id)->cardSpecificTypes;
     }
 
     public function getTypes($id)
     {
-        return CardType::findOrFail($id)->types()->get();
+        return CardType::find($id)->types;
     }
 }
