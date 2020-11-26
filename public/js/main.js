@@ -1,8 +1,12 @@
 $(document).ready(function() {
-    $('.hide-card-type').hide();
-    $('.hide-monster').hide();
+    let pendulumMonsterTypeIds = [14, 15, 16, 17, 19, 22, 24];
+    let linkMonsterTypeIds = [25];
+    let spellTrapTypeIds = [26, 27];
 
-    $('form[method="get"]').submit(function() {
+    $('.card-type-display').hide();
+    $('.monster-display').hide();
+
+    /*$('form[method="get"]').submit(function() {
         $(this).find(':input').each(function() {
             var inp = $(this);
 
@@ -10,45 +14,79 @@ $(document).ready(function() {
                 inp.remove();
             }
         });
-    });
+    });*/
 
-    $('select[id=card-type]').change(function() {
-        if ($(this).val() != '') {
-            $('.hide-card-type').show();
-        } else {
-            $('.hide-card-type').hide();
-        }
-
-        if ($(this).val() == 1) {
-            $('.hide-monster').show();
-        } else {
-            $('.hide-monster').hide();
-        }
-
+    $('#card-type').change(function() {
         var url1 = '/getCardSpecificTypes/' + $(this).val();
         var url2 = '/getTypes/' + $(this).val();
 
-        $.get(url1, function(data) {
-            var select = $('form select[name=type]');
+        $.ajax({
+            url: url1,
+            method: 'GET',
+            success: function(response) {
+                var select = $('#type');
 
-            select.empty();
-            select.append("<option value=''>Selecionar</option>");
+                select.empty();
+                select.append("<option value=''>Selecionar</option>");
 
-            $.each(data,function(key, value) {
-                select.append("<option value='" + value.type + "'>" + value.type + "</option>");
-            });
+                response.forEach(function (item) {
+                    select.append("<option value='" + item.type + "' data-id='" + item.id + "'>" + item.type + "</option>");
+                });
+            }
         });
 
-        $.get(url2, function(data) {
-            var select = $('form select[name=race]');
+        $.ajax({
+            url: url2,
+            method: 'GET',
+            success: function(response) {
+                var select = $('#race');
 
-            select.empty();
-            select.append("<option value=''>Selecionar</option>");
+                select.empty();
+                select.append("<option value=''>Selecionar</option>");
 
-            $.each(data,function(key, value) {
-                select.append("<option value='" + value.type + "'>" + value.type + "</option>");
-            });
+                response.forEach(function (item) {
+                    select.append("<option value='" + item.type + "'>" + item.type + "</option>");
+                });
+            }
         });
+
+        if ($(this).val()) {
+            $('.card-type-display').show();
+        } else {
+            $('.card-type-display').hide();
+        }
+
+        if ($(this).val() == 1) {
+            $('.monster-display').show();
+        } else {
+            $('.monster-display').hide();
+        }
+    });
+
+    $('#type').change(function() {
+        let id = $(this).find(':selected').data('id');
+
+        if (linkMonsterTypeIds.includes(id)) {
+            $('.pendulum-display').hide();
+            $('.link-display').show();
+
+            $('#def-display, #level-display').hide();
+        } else {
+            if (!spellTrapTypeIds.includes(id)) {
+                $('#def-display, #level-display').show();
+            }
+
+            if (pendulumMonsterTypeIds.includes(id)) {
+                $('.pendulum-display').show();
+                $('.link-display').hide();
+            } else if (id) {
+                $('.pendulum-display').hide();
+                $('.link-display').hide();
+            } else {
+                $('.pendulum-display').show();
+                $('.link-display').show();
+            }
+        }
     });
 
     $('.scroll').infiniteScroll({

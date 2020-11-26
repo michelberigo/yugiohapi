@@ -20,3 +20,20 @@ form label {
 .card-result {
 	margin-bottom: 20px;
 }
+
+.fa-rotate-45-left {
+    -o-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.fa-rotate-45-right {
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.btn-linkmarker:not(:disabled):not(.disabled).active, .btn-linkmarker:not(:disabled):not(.disabled):active, .show>.btn-linkmarker.dropdown-toggle {
+	background-color: #767676;
+    border-color: #767676;
+}

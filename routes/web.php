@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', 'MainController@index');
-Route::get('/getCardSpecificTypes/{id}', 'MainController@getCardSpecificTypes');
-Route::get('/getTypes/{id}', 'MainController@getTypes');
+Route::get('/', 'CartasController@index')->name('cartas.index');
+Route::get('/cartas/{id}', 'CartasController@show')->name('cartas.show');
+Route::get('/getCardSpecificTypes/{id}', 'CartasController@getCardSpecificTypes');
+Route::get('/getTypes/{id}', 'CartasController@getTypes');
