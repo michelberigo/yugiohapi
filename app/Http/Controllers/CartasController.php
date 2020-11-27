@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CardType;
 use App\Repositories\CartaRepository;
-//use EloquentBuilder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -52,11 +52,18 @@ class CartasController extends Controller
 
     public function show($id)
     {
-        $url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?id=" . $id;
+        $parametrosUrl = [
+            'id' => $id,
+            'misc' => 'yes'
+        ];
+
+        $url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?" . http_build_query($parametrosUrl);
         $response = Http::get($url);
 
         $carta = $response->json();
         $carta = collect($carta['data'])->first();
+
+        $carta['misc_info'][0]['tcg_date'] = Carbon::parse($carta['misc_info'][0]['tcg_date'])->format('d/m/Y');
 
         $parametros = [
             'carta' => $carta

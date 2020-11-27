@@ -18,6 +18,8 @@
             <div class="col-md-8">
                 <h3 class="text-center">Dados da Carta</h3>
 
+                <p><b>Data de Lançamento TCG:</b> {{ $carta['misc_info'][0]['tcg_date'] }}</p>
+
                 @if(isset($carta['archetype']))
                     <p><b>Arquétipo:</b> {{ $carta['archetype'] }}</p>
                 @endif
