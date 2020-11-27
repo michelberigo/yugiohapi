@@ -27,6 +27,7 @@ class CartasController extends Controller
         $response = Http::get($url);
 
         $cartas = $response->json();
+
         $cartas = collect($cartas['data']);
         $cartas = $cartas->sortBy('name');
 
