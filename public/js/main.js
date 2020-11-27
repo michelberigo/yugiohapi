@@ -6,15 +6,9 @@ $(document).ready(function() {
     $('.card-type-display').hide();
     $('.monster-display').hide();
 
-    /*$('form[method="get"]').submit(function() {
-        $(this).find(':input').each(function() {
-            var inp = $(this);
-
-            if (!inp.val()) {
-                inp.remove();
-            }
-        });
-    });*/
+    $('#form_filter select').change(function() {
+        alert('tois');
+    });
 
     $('#card-type').change(function() {
         var url1 = '/getCardSpecificTypes/' + $(this).val();

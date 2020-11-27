@@ -7,14 +7,17 @@ form label {
 	max-width: 100%;
 }
 
+.img-above {
+	position: relative;
+    display: inline;
+}
+
 .img-banlist {
 	position: absolute;
-	left: 35%;
-    top: 10%;
-    margin-top: -25px;
-	margin-left: -25px;
-	width: 15%;
-	height: 20%;
+	margin-top: -110px;
+    right: 0%;
+    top: 0%;
+    max-width: 30%;
 }
 
 .card-result {
@@ -36,4 +39,9 @@ form label {
 .btn-linkmarker:not(:disabled):not(.disabled).active, .btn-linkmarker:not(:disabled):not(.disabled):active, .show>.btn-linkmarker.dropdown-toggle {
 	background-color: #767676;
     border-color: #767676;
+}
+
+#form_filter label {
+	color: #444;
+	font-family: Arial, Helvetica, sans-serif;
 }

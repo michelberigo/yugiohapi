@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\CardType;
 use App\Client;
 use Illuminate\Support\Facades\Http;
 
@@ -16,6 +17,14 @@ class CartaRepository
         if (isset($dados['linkmarker'])) {
             $dados['linkmarker'] = collect($dados['linkmarker'])->implode(',');
         }
+
+        if (isset($dados['card-type']) && !isset($dados['type'])) {
+            $cardSpecificType = CardType::find($dados['card-type'])->cardSpecificTypes;
+
+            $dados['type'] = $cardSpecificType->implode('type', ',');
+        }
+
+        $dados['format'] = 'tcg';
 
         return $dados;
     }

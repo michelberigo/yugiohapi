@@ -9,7 +9,7 @@
 
 @section('content')
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-        <form id="filter" method="get" action="/">
+        <form id="form_search" method="get" action="/">
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
@@ -199,6 +199,42 @@
     <br>
 
     <div class="container-fluid">
+        <form action="" id="form_filter">
+            <div class="row mb-2">
+                <div class="col-md-1">
+                    Filtrar por
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="banlist">Banlist</label>
+
+                        <select name="banlist" id="banlist" class="form-control">
+                            <option value="">Selecionar</option>
+                            <option value="TCG">TCG</option>
+                            <option value="OCG">OCG</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="sort ">Ordenar por</label>
+
+                        <select name="sort " id="sort " class="form-control">
+                            <option value="">Selecionar</option>
+                            <option value="atk">ATK</option>
+                            <option value="def">DEF</option>
+                            <option value="name">Nome</option>
+                            <option value="type">Tipo</option>
+                            <option value="level">Nível</option>
+                            <option value="new">Recente</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <div class="scroll card-result">
             @foreach ($cards->chunk(4) as $cardsChunk)
                 <div class="row text-center">
@@ -207,18 +243,18 @@
                             <h4>{{ $card['name'] }}</h4>
                             
                             <div class="col-md-12">
-                                <a href="" data-toggle="modal" data-target="#ModalImage{{ $card['id'] }}">
-                                    <img src="{{ $card['card_images'][0]['image_url_small'] }}" alt="{{ $card['name'] }}" width="168" height="246">
-
+                                <a href="" data-toggle="modal" data-target="#ModalImage{{ $card['id'] }}" class="img-above">
                                     @if (isset($card['banlist_info']['ban_tcg']))
                                         @if ($card['banlist_info']['ban_tcg'] == 'Banned')
-                                            <img src="img/banned.png" alt="banned" class="img-banlist">
+                                            <img src="img/banned.png" alt="banned" class="img-responsive img-banlist" title="Atualmente, esta carta está banida!">
                                         @elseif ($card['banlist_info']['ban_tcg'] == 'Limited')
-                                            <img src="img/limited.png" alt="limited" class="img-banlist">
+                                            <img src="img/limited.png" alt="limited" class="img-responsive img-banlist" title="Atualmente, esta carta está limitada!">
                                         @elseif ($card['banlist_info']['ban_tcg'] == 'Semi-Limited')
-                                            <img src="img/semi-limited.png" alt="semi limited" class="img-banlist">
+                                            <img src="img/semi-limited.png" alt="semi limited" class="img-responsive img-banlist" title="Atualmente, esta carta está semi-limitada!">
                                         @endif
                                     @endif
+
+                                    <img src="{{ $card['card_images'][0]['image_url_small'] }}" alt="{{ $card['name'] }}" width="168" height="246">
                                 </a>
 
                                 <!-- Modal -->
@@ -238,7 +274,7 @@
                                                             <img src="{{ $card['card_images'][0]['image_url'] }}" class="img-responsive-modal">
                                                         </a>
 
-                                                        <a href="{{ route('cartas.show', $card['id']) }}" class="btn btn-info mt-3">Mais informações da carta</a>
+                                                        <a href="{{ route('cartas.show', $card['id']) }}" class="btn btn-info mt-3" target="_blank">Mais informações da carta</a>
                                                     </div>
 
                                                     <div class="col-md-6">

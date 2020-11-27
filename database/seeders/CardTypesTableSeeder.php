@@ -22,12 +22,8 @@ class CardTypesTableSeeder extends Seeder
 
         foreach ($cards as $card) {
             CardType::updateOrCreate(
-                [
-                    'type' => $card['type']
-                ],
-                [
-                    'type' => $card['type']
-                ]
+                ['type' => $card['type']],
+                ['type' => $card['type']]
             );
         }
     }
