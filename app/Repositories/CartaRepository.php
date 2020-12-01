@@ -70,4 +70,28 @@ class CartaRepository
 
         return $attributes;
     }
+
+    public function getBanlist()
+    {
+        $banlist = collect([
+            ['value' => "TCG", 'label' => 'TCG'],
+            ['value' => "OCG", 'label' => 'OCG'],
+        ]);
+
+        return $banlist;
+    }
+
+    public function getOrdenamento()
+    {
+        $ordenamento = collect([
+            ['value' => "atk", 'label' => 'ATK'],
+            ['value' => "def", 'label' => 'DEF'],
+            ['value' => "name", 'label' => 'Nome'],
+            ['value' => "type", 'label' => 'Tipo'],
+            ['value' => "level", 'label' => 'Nível'],
+            ['value' => "new", 'label' => 'Recente'],
+        ]);
+
+        return $ordenamento;
+    }
 }

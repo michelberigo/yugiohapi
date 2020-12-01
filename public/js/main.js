@@ -7,7 +7,10 @@ $(document).ready(function() {
     $('.monster-display').hide();
 
     $('#form_filter select').change(function() {
-        alert('tois');
+        let urlParams = window.location.search.substring(1);
+        let data = '?' + urlParams + '&' + $('#form_filter').serialize();
+
+        window.location.href = '/' + data;
     });
 
     $('#card-type').change(function() {

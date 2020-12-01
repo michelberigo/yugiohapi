@@ -19,23 +19,31 @@ class CartasController extends Controller
     
     public function index(Request $request)
     {
-        $dados = $this->carta->ajustarParametros($request->all());
+        $parametros = $this->carta->ajustarParametros($request->all());
 
-        $parametrosUrl = http_build_query($dados);
+        $parametrosUrl = http_build_query($parametros);
         $url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?" . $parametrosUrl;
 
         $response = Http::get($url);
 
         $cartas = $response->json();
-
         $cartas = collect($cartas['data']);
-        $cartas = $cartas->sortBy('name');
+
+        if (!isset($parametros['sort'])) {
+            $cartas = $cartas->sortBy('name');
+        }
 
         $cartas = $this->carta->paginarCollection($cartas, $request->get('page'));
 
         $archetypes = $this->carta->getArchetypes();
         $cardSets = $this->carta->getCardSets();
         $attributes = $this->carta->getAttributes();
+
+        $banlist = $this->carta->getBanlist();
+        $banlist = gerarSelect($banlist, isset($parametros['banlist']) ? $parametros['banlist'] : null);
+
+        $ordenamento = $this->carta->getOrdenamento();
+        $ordenamento = gerarSelect($ordenamento, isset($parametros['sort']) ? $parametros['sort'] : null);
 
         $cardTypes = CardType::all();
 
@@ -44,7 +52,10 @@ class CartasController extends Controller
             'cardTypes' => $cardTypes,
             'archetypes' => $archetypes,
             'attributes' => $attributes,
-            'cardSets' => $cardSets
+            'banlist' => $banlist,
+            'ordenamento' => $ordenamento,
+            'cardSets' => $cardSets,
+            'parametros' => $parametros
         ];
 
         return view('cartas.index', $parametros);

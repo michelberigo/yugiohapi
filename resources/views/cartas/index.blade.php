@@ -199,62 +199,27 @@
     <br>
 
     <div class="container-fluid">
-        <form action="" id="form_filter" class="form-inline">
+        <form action="" id="form_filter" class="form-inline mb-4">
             <label class="m-2 mr-2">Filtrar por:</label>
 
             <label for="banlist" class="m-1">Banlist</label>
 
             <select name="banlist" id="banlist" class="form-control m-1 mr-2">
-                <option value="">Selecionar</option>
-                <option value="TCG">TCG</option>
-                <option value="OCG">OCG</option>
+                {!! $banlist !!}
             </select>
 
             <label for="staple" class="m-1">Staple</label>
 
             <select name="staple" id="staple" class="form-control m-1">
-                <option value="">Selecionar</option>
-                <option value="yes">Sim</option>
                 <option value="">Não</option>
+                <option value="yes" {{ isset($parametros['staple']) ? 'selected' : '' }}>Sim</option>
             </select>
 
             <label for="sort" class="m-1 ml-5">Ordenar por:</label>
 
             <select name="sort" id="sort" class="form-control m-1">
-                <option value="">Selecionar</option>
-                <option value="atk">ATK</option>
-                <option value="def">DEF</option>
-                <option value="name">Nome</option>
-                <option value="type">Tipo</option>
-                <option value="level">Nível</option>
-                <option value="new">Recente</option>
+                {!! $ordenamento !!}
             </select>
-        </form>
-
-        <form   class="form-inline">
-            <div class="rows mb-2">
-                <div class="col-mds-2">
-                    
-                </div>
-
-                <div class="col-mds-1">
-                    
-                </div>
-
-                <div class="col-md-2">
-                    <div class="form-group">
-                        
-                    </div>
-                </div>
-
-                <div class="col-mds-2">
-                    <div class="form-group">
-                        <label for="sort ">Ordenar por</label>
-
-                        
-                    </div>
-                </div>
-            </div>
         </form>
 
         <div class="scroll card-result">
@@ -266,13 +231,23 @@
                             
                             <div class="col-md-12">
                                 <a href="" data-toggle="modal" data-target="#ModalImage{{ $card['id'] }}" class="img-above">
-                                    @if (isset($card['banlist_info']['ban_tcg']))
-                                        @if ($card['banlist_info']['ban_tcg'] == 'Banned')
-                                            <img src="img/banned.png" alt="banned" class="img-responsive img-banlist" title="Atualmente, esta carta está banida!">
-                                        @elseif ($card['banlist_info']['ban_tcg'] == 'Limited')
-                                            <img src="img/limited.png" alt="limited" class="img-responsive img-banlist" title="Atualmente, esta carta está limitada!">
-                                        @elseif ($card['banlist_info']['ban_tcg'] == 'Semi-Limited')
-                                            <img src="img/semi-limited.png" alt="semi limited" class="img-responsive img-banlist" title="Atualmente, esta carta está semi-limitada!">
+                                    @if (isset($card['banlist_info']))
+                                        @if (!isset($parametros['banlist']) || $parametros['banlist'] == 'TCG')
+                                            @if ($card['banlist_info']['ban_tcg'] == 'Banned')
+                                                <img src="img/banned.png" alt="banned" class="img-responsive img-banlist" title="Atualmente, esta carta está banida!">
+                                            @elseif ($card['banlist_info']['ban_tcg'] == 'Limited')
+                                                <img src="img/limited.png" alt="limited" class="img-responsive img-banlist" title="Atualmente, esta carta está limitada!">
+                                            @elseif ($card['banlist_info']['ban_tcg'] == 'Semi-Limited')
+                                                <img src="img/semi-limited.png" alt="semi limited" class="img-responsive img-banlist" title="Atualmente, esta carta está semi-limitada!">
+                                            @endif
+                                        @else
+                                            @if ($card['banlist_info']['ban_ocg'] == 'Banned')
+                                                <img src="img/banned.png" alt="banned" class="img-responsive img-banlist" title="Atualmente, esta carta está banida!">
+                                            @elseif ($card['banlist_info']['ban_ocg'] == 'Limited')
+                                                <img src="img/limited.png" alt="limited" class="img-responsive img-banlist" title="Atualmente, esta carta está limitada!">
+                                            @elseif ($card['banlist_info']['ban_ocg'] == 'Semi-Limited')
+                                                <img src="img/semi-limited.png" alt="semi limited" class="img-responsive img-banlist" title="Atualmente, esta carta está semi-limitada!">
+                                            @endif
                                         @endif
                                     @endif
 
