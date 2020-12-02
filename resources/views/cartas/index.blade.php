@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('head')
-    <script src="js/main.js" crossorigin="anonymous"></script>
+    <script src="js/index.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="css/main/main.scss">
     <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/infinite-scroll/infinite-scroll.css">
@@ -233,20 +233,24 @@
                                 <a href="" data-toggle="modal" data-target="#ModalImage{{ $card['id'] }}" class="img-above">
                                     @if (isset($card['banlist_info']))
                                         @if (!isset($parametros['banlist']) || $parametros['banlist'] == 'TCG')
-                                            @if ($card['banlist_info']['ban_tcg'] == 'Banned')
-                                                <img src="img/banned.png" alt="banned" class="img-responsive img-banlist" title="Atualmente, esta carta está banida!">
-                                            @elseif ($card['banlist_info']['ban_tcg'] == 'Limited')
-                                                <img src="img/limited.png" alt="limited" class="img-responsive img-banlist" title="Atualmente, esta carta está limitada!">
-                                            @elseif ($card['banlist_info']['ban_tcg'] == 'Semi-Limited')
-                                                <img src="img/semi-limited.png" alt="semi limited" class="img-responsive img-banlist" title="Atualmente, esta carta está semi-limitada!">
+                                            @if (isset($card['banlist_info']['ban_tcg']))
+                                                @if ($card['banlist_info']['ban_tcg'] == 'Banned')
+                                                    <img src="img/banned.png" alt="banned" class="img-responsive img-banlist" title="Atualmente, esta carta está banida!">
+                                                @elseif ($card['banlist_info']['ban_tcg'] == 'Limited')
+                                                    <img src="img/limited.png" alt="limited" class="img-responsive img-banlist" title="Atualmente, esta carta está limitada!">
+                                                @elseif ($card['banlist_info']['ban_tcg'] == 'Semi-Limited')
+                                                    <img src="img/semi-limited.png" alt="semi limited" class="img-responsive img-banlist" title="Atualmente, esta carta está semi-limitada!">
+                                                @endif
                                             @endif
                                         @else
-                                            @if ($card['banlist_info']['ban_ocg'] == 'Banned')
-                                                <img src="img/banned.png" alt="banned" class="img-responsive img-banlist" title="Atualmente, esta carta está banida!">
-                                            @elseif ($card['banlist_info']['ban_ocg'] == 'Limited')
-                                                <img src="img/limited.png" alt="limited" class="img-responsive img-banlist" title="Atualmente, esta carta está limitada!">
-                                            @elseif ($card['banlist_info']['ban_ocg'] == 'Semi-Limited')
-                                                <img src="img/semi-limited.png" alt="semi limited" class="img-responsive img-banlist" title="Atualmente, esta carta está semi-limitada!">
+                                            @if (isset($card['banlist_info']['ban_ocg']))
+                                                @if ($card['banlist_info']['ban_ocg'] == 'Banned')
+                                                    <img src="img/banned.png" alt="banned" class="img-responsive img-banlist" title="Atualmente, esta carta está banida!">
+                                                @elseif ($card['banlist_info']['ban_ocg'] == 'Limited')
+                                                    <img src="img/limited.png" alt="limited" class="img-responsive img-banlist" title="Atualmente, esta carta está limitada!">
+                                                @elseif ($card['banlist_info']['ban_ocg'] == 'Semi-Limited')
+                                                    <img src="img/semi-limited.png" alt="semi limited" class="img-responsive img-banlist" title="Atualmente, esta carta está semi-limitada!">
+                                                @endif
                                             @endif
                                         @endif
                                     @endif
