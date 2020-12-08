@@ -1,7 +1,7 @@
 @extends('welcome')
 
 @section('head')
-    <script src="js/index.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main/main.scss">
     <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/infinite-scroll/infinite-scroll.css">

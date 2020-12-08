@@ -1,11 +1,17 @@
 @extends('welcome')
 
+@section('head')
+    <script type="text/javascript" src="/js/show.js"></script>
+@endsection
+
 @section('content')
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ route('cartas.index') }}">Página Inicial</a>
     </nav>
 
     <div class="container-fluid">
+        <input type="hidden" id="cartaId" value="{{ $carta['id'] }}">
+        
         <h1 class="text-center mt-5">{{ $carta['name'] }}</h1>
 
         <hr>
@@ -52,7 +58,8 @@
                 @endif
 
                 <div><b>Texto/Efeito:</b></div>
-                <div>{!! nl2br($carta['desc']) !!}</div>
+                <div id="carta_efeito">{!! nl2br($carta['desc']) !!}</div>
+                <button id="traduzir_efeito" class="btn btn-info btn-sm mt-2" data-language="pt">Traduzir Efeito</button>
 
                 <hr>
 
