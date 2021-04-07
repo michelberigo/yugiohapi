@@ -222,6 +222,12 @@
             </select>
         </form>
 
+        @if ($message = Session::get('error'))
+            <div class="alert alert-danger text-center">
+                {{ $message }}
+            </div>
+        @endif
+
         <div class="scroll card-result">
             @foreach ($cards->chunk(4) as $cardsChunk)
                 <div class="row text-center">

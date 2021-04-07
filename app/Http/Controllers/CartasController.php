@@ -27,6 +27,11 @@ class CartasController extends Controller
         $response = Http::get($url);
 
         $cartas = $response->json();
+        
+        if (isset($cartas['error'])) {
+            return redirect()->route('cartas.index')->with('error', 'Sem resultados encontrados!');
+        }
+
         $cartas = collect($cartas['data']);
 
         if (!isset($parametros['sort'])) {
