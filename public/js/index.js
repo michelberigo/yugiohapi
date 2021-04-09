@@ -87,7 +87,6 @@ $(document).ready(function() {
     });
 
     $('.scroll').infiniteScroll({
-        // options
         path: '.pagination__next',
         append: '.card-result',
         status: '.scroller-status',

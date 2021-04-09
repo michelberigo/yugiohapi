@@ -49,3 +49,23 @@ form label {
 #form_filter select {
     width: 15%;
 }
+
+body.dark-theme, body.dark-theme .modal-content, body.dark-theme .card-body {
+    background: #495057;
+    transition: background-color 1000ms linear;
+}
+
+body.dark-theme h1,  body.dark-theme h3, body.dark-theme h4, body.dark-theme h5 {
+    color: #fff;
+    transition: background-color 1000ms linear;
+}
+
+body.dark-theme #form_filter label, body.dark-theme p, body.dark-theme .div-effect, body.dark-theme .modal .close {
+    color: #fff;
+    transition: background-color 1000ms linear;
+}
+
+body.dark-theme hr, body.dark-theme .loader-ellips__dot {
+    background-color: #fff;
+    transition: background-color 1000ms linear;
+}

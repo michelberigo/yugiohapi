@@ -1,6 +1,7 @@
 @extends('welcome')
 
 @section('head')
+    <link rel="stylesheet" type="text/css" href="/css/main/main.scss">
     <script type="text/javascript" src="/js/show.js"></script>
 @endsection
 
@@ -57,9 +58,11 @@
                     <p><b>Quantidade Setas:</b> {{ $carta['linkval'] }}</p>
                 @endif
 
-                <div><b>Texto/Efeito:</b></div>
-                <div id="carta_efeito">{!! nl2br($carta['desc']) !!}</div>
-                <button id="traduzir_efeito" class="btn btn-info btn-sm mt-2" data-language="pt">Traduzir Efeito</button>
+                <div class="div-effect">
+                    <div><b>Texto/Efeito:</b></div>
+                    <div id="carta_efeito">{!! nl2br($carta['desc']) !!}</div>
+                    <button id="traduzir_efeito" class="btn btn-info btn-sm mt-2" data-language="pt">Traduzir Efeito</button>
+                </div>
 
                 <hr>
 

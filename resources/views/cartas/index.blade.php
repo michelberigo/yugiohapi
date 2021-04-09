@@ -2,7 +2,7 @@
 
 @section('head')
     <script type="text/javascript" src="/js/index.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/main/main.scss">
+    <link rel="stylesheet" type="text/css" href="/css/main/main.scss">
     <script src="https://unpkg.com/infinite-scroll@3/dist/infinite-scroll.pkgd.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/infinite-scroll/infinite-scroll.css">
 @endsection
@@ -220,6 +220,11 @@
             <select name="sort" id="sort" class="form-control m-1">
                 {!! $ordenamento !!}
             </select>
+
+            <div class="custom-control custom-switch text-right ml-5">
+                <input type="checkbox" class="custom-control-input" id="dark-mode">
+                <label class="custom-control-label" for="dark-mode"><i class="fas fa-sun mr-1"></i> Dark Mode</label>
+            </div>
         </form>
 
         @if ($message = Session::get('error'))
