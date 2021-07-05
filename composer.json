@@ -12,7 +12,7 @@
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.4",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^8.0",
+        "laravel/framework": "^8.40.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "nesbot/carbon": "^2.36"
